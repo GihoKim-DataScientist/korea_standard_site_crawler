@@ -21,6 +21,13 @@ def cleaning_data(string):
     return_string = regexed_str.replace("\n", " ")
     return return_string.strip()
 
+def table_parser(contents, data, std, title):
+    for contents_idx in range(0, len(contents), len(data.find_all("th"))):
+        sub_dict = {}
+        for th in range(len(data.find_all("th"))):
+            sub_dict[data.find_all("th")[th].text] = cleaning_data(contents[contents_idx + th].text)
+        std[title].append(sub_dict)
+
 def std_crawler(dict, lst_page_soup, driver):
     page_list_data = lst_page_soup.find_all("tbody")[1]
     row_lst = page_list_data.find_all("tr")
@@ -77,89 +84,28 @@ def std_crawler(dict, lst_page_soup, driver):
                 #테이블 데이터 처리 / 유형별로 파악해서 if 문 바꾸기 / 아예 클래스를 만들어서 기존 항목에 추가 제거의 경우에 처리할 경우 / 테이블 파싱하는 함수 만들기 (colspan 예외 처리도)
                 elif title == "국제표준 부합화" or title == "표준이력사항" or title == "인증심사기준":
                     std[title] = []
-                    # 국제표준 부합화
-                    # if title == "국제표준 부합화":
-                    #     data = soup.find("div", {'class':"table list gray"})
-                    #     sub_title_1,sub_title_2 = data.find_all("th")[0].text, data.find_all("th")[1].text
-                        
-                    #     contents = data.find_all("td")
-                        
-                    #     if "없" in contents[0].text:
-                    #         if len(contents) == 1:
-                    #             contents_idx = 0
-                    #             sub_dict = {} 
-                    #             sub_dict[sub_title_1] = contents[contents_idx].text
-                    #             sub_dict[sub_title_2] = contents[contents_idx].text
-                    #             std[title].append(sub_dict)
-                    #         else:
-                    #             contents_idx = 0
-                    #             sub_dict = {} 
-                    #             sub_dict[sub_title_1] = contents[contents_idx].text
-                    #             sub_dict[sub_title_2] = contents[contents_idx].text
-                    #             contents = contents[1:]
-                    #             std[title].append(sub_dict)
-                                
-                    #             for contents_idx in range(0, len(contents), 2):
-                    #                 sub_dict = {}
-                    #                 sub_dict[sub_title_1] = contents[contents_idx].text
-                    #                 sub_dict[sub_title_2] = contents[contents_idx + 1].text
-                    #                 std[title].append(sub_dict)
-                    #     else:
-                    #         for contents_idx in range(0, len(contents), 2):
-                    #             sub_dict = {}
-                    #             sub_dict[sub_title_1] = contents[contents_idx].text
-                    #             sub_dict[sub_title_2] = contents[contents_idx + 1].text
-                    #             std[title].append(sub_dict)
                     
                     # 국제표준 부합화
                     if title == "국제표준 부합화":
                         sub_dict = {}
                         data = soup.find("div", {'class':"table list gray"})
-                        sub_title_1,sub_title_2 = data.find_all("th")[0].text, data.find_all("th")[1].text
                         contents = data.find_all("td")
-                        if len(contents) == 0:
+                        
+                        if "colspan" in contents[0].attrs:
                             for j in range(int(contents[0].attrs["colspan"])):
                                 sub_dict[data.find_all("th")[j].text] = contents[0].text
                             std[title].append(sub_dict)
-                                
-                        else:
-                            if "colspan" in contents[0].attrs:
-                                for j in range(int(contents[0].attrs["colspan"])):
-                                    sub_dict[data.find_all("th")[j].text] = contents[0].text
-                                std[title].append(sub_dict)
-                                contents = contents[1:]
-                                
-                            for contents_idx in range(0, len(contents), 2):
-                                sub_dict = {}
-                                sub_dict[sub_title_1] = contents[contents_idx].text
-                                sub_dict[sub_title_2] = contents[contents_idx + 1].text
-                                std[title].append(sub_dict)
+                            contents = contents[1:]
+                            
+                        table_parser(contents, data, std, title)
                             
                         
                     #표준이력사항
                     elif title == "표준이력사항":
-                        # data = soup.find_all("div", {'class':"table list gray"})[1]
-                        # # 변경일자, 구분, 고시번호, 재정 개정 폐지사유, 신구대비표 
-                        # sub_title_1,sub_title_2, sub_title_3, sub_title_4, sub_title_5 = data.find_all("th")[0].text, data.find_all("th")[1].text, data.find_all("th")[2].text, data.find_all("th")[3].text, data.find_all("th")[4].text
-                        
-                        # contents = data.find_all("td")
-                        
-                        # for contents_idx in range(0, len(contents), 5):
-                        #     sub_dict = {}
-                        #     sub_dict[sub_title_1] = cleaning_data(contents[contents_idx].text)
-                        #     sub_dict[sub_title_2] = cleaning_data(contents[contents_idx+1].text)
-                        #     sub_dict[sub_title_3] = cleaning_data(contents[contents_idx+2].text)
-                        #     sub_dict[sub_title_4] = cleaning_data(contents[contents_idx+3].text)
-                        #     sub_dict[sub_title_5] = cleaning_data(contents[contents_idx+4].text)
-                        #     std[title].append(sub_dict)
-                        sub_dict = {}
                         data = soup.find_all("div", {'class':"table list gray"})[1]
                         contents = data.find_all("td")
-                        for contents_idx in range(0, len(contents), len(data.find_all("th"))):
-                            for th in range(len(data.find_all("th"))):
-                                sub_title = data.find_all("th")[th].text
-                                sub_dict[sub_title] = cleaning_data(contents[contents_idx + th].text)
-                            std[title].append(sub_dict)
+                        
+                        table_parser(contents, data, std, title)
                             
                             
                     #인증심사기준
@@ -173,11 +119,7 @@ def std_crawler(dict, lst_page_soup, driver):
                             std[title].append(sub_dict)
                         
                         else:
-                            for contents_idx in range(0, len(contents), len(data.find_all("th"))):
-                                for th in range(len(data.find_all("th"))):
-                                    sub_title = data.find_all("th")[contents_idx + th].text
-                                    sub_dict[sub_title] = contents[contents_idx + th].text
-                                std[title].append(sub_dict)
+                            table_parser(contents, data, std, title)
 
                 # 나머지 데이터
                 else:
@@ -206,6 +148,12 @@ def page_crawl(start_page):
     driver = webdriver.Chrome(executable_path=r"C:\Users\gihok\chatbot\chromedriver.exe")
     driver.get("https://standard.go.kr/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502")
     
+    driver.find_element(By.CLASS_NAME, "last").click()
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'html.parser')
+    last_page = soup.find_all("a", {"class": "on"})[1].text
+    driver.find_element(By.CLASS_NAME, "first").click()
+    
     dict = {}
     dict['stds'] = []
     
@@ -227,12 +175,12 @@ def page_crawl(start_page):
     li_lst = [button.text for button in li_lst]
     start = li_lst.index(str(start_page))
     
-    is_success = True
+    is_success = False
     page_num = 0
     
     try:
         while True:
-            for page in range(start + 1, len(li_lst) - 3):
+            for page in range(start + 1, len(li_lst) - 1):
                 driver.find_element(By.XPATH, '//*[@id="tabs-container"]/div[3]/div/div/ul/li[{}]/a'.format(page)).click()
                 page_num = driver.find_element(By.XPATH, '//*[@id="tabs-container"]/div[3]/div/div/ul/li[{}]/a'.format(page)).text
                 
@@ -242,12 +190,11 @@ def page_crawl(start_page):
                 
                 dict, is_success = std_crawler(dict, lst_page_soup, driver)
                 
-                if page_num == "3233":
-                    return dict, int(page_num), True
-                
-                if is_success == False:
+                if page_num == last_page:
+                    is_success = True
                     return dict, int(page_num), is_success
                 
+            # 다시 1페이지부터
             start = 2
             
             driver.find_element(By.CLASS_NAME, 'next').click()
@@ -260,6 +207,7 @@ def main(last_page_no, max_retry_num):
     datalist = {}
     datalist['stds'] = []
     current_retry_count = 0
+    
     
     while True:
         if current_retry_count >= max_retry_num:
@@ -287,8 +235,54 @@ def main(last_page_no, max_retry_num):
             return datalist, is_success, current_retry_count
         
 
-result, status, current_retry_count = main(2745, 10)
+# result, status, current_retry_count = main(2745, 10)
 
-to_json(result, "output_new_all.json")
-print(status)
-print(current_retry_count)
+# to_json(result, "output_new_all.json")
+# print(status)
+# print(current_retry_count)
+
+
+
+def json_reader(filename):
+    with open (filename, "r", encoding = 'UTF8') as f:
+        data = json.load(f)
+    
+    df = pd.json_normalize(data['stds'])
+    return df
+
+def db_process(filename, host, password, db_name, table_name):
+    db = pymysql.connect(host = host, port = 3306, user = 'root', password = password,
+                     db = db_name, charset = 'utf8')   # charset: 인코딩 설정
+
+    cursor = db.cursor()
+
+    sql = 'INSERT INTO ' + table_name + ' (id, doc_num, doc_name_ko, doc_name_en, publish_date, final_date, json_data, crawled_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+
+    output_df = json_reader(filename)
+    output_df = output_df.reset_index()
+
+    with open (filename, "r", encoding = 'UTF8') as f:
+        data = json.load(f)
+        
+    lst = data['stds']
+    std_lst = []
+    for i in range(len(lst)):
+        if lst[i] not in std_lst:
+            std_lst.append(lst[i])
+            
+
+    # 정상적으로 작동됨
+    for i in range(len(output_df)):
+        json_data = json.dumps(std_lst[i])
+        try:
+            cursor.execute(sql, (output_df.loc[i][0], output_df.loc[i][1], output_df.loc[i][2], output_df.loc[i][3], output_df.loc[i][7], output_df.loc[i][8], json_data, output_df.loc[i][23]))
+        except:
+            if len(output_df.loc[i][7]) == 0:
+                cursor.execute(sql, (output_df.loc[i][0], output_df.loc[i][1], output_df.loc[i][2], output_df.loc[i][3], None, output_df.loc[i][8], json_data, output_df.loc[i][23]))
+            else:
+                print(i)
+    db.commit()
+
+    db.close()
+
+db_process("output_all_std.json", "192.168.0.124", "linuxer", "std_crawled_data", "std_data")
