@@ -144,8 +144,8 @@ def std_crawler(dict, lst_page_soup, driver):
     is_success = True
     return dict, is_success
 
-def page_crawl(start_page):
-    driver = webdriver.Chrome(executable_path=r"C:\Users\gihok\chatbot\chromedriver.exe")
+def page_crawl(start_page, chrome_path):
+    driver = webdriver.Chrome(executable_path=chrome_path)
     driver.get("https://standard.go.kr/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502")
     
     driver.find_element(By.CLASS_NAME, "last").click()
@@ -203,7 +203,7 @@ def page_crawl(start_page):
         return dict, int(page_num), is_success
     
     
-def main(last_page_no, max_retry_num):
+def main(last_page_no, max_retry_num, chrome_path):
     datalist = {}
     datalist['stds'] = []
     current_retry_count = 0
@@ -216,7 +216,7 @@ def main(last_page_no, max_retry_num):
             return datalist, is_success, current_retry_count
         
         
-        current_data_list, end_page_no, is_success = page_crawl(last_page_no)
+        current_data_list, end_page_no, is_success = page_crawl(last_page_no, chrome_path)
         
         # merge current_data_list to datalist 
         for i in current_data_list['stds']:
@@ -235,7 +235,7 @@ def main(last_page_no, max_retry_num):
             return datalist, is_success, current_retry_count
         
 
-# result, status, current_retry_count = main(2745, 10)
+result, status, current_retry_count = main(1, 10, r"C:\Users\gihok\chatbot\chromedriver.exe")
 
 # to_json(result, "output_new_all.json")
 # print(status)
@@ -285,4 +285,4 @@ def db_process(filename, host, password, db_name, table_name):
 
     db.close()
 
-db_process("output_all_std.json", "192.168.0.124", "linuxer", "std_crawled_data", "std_data")
+# db_process("output_all_std.json", "192.168.0.124", "linuxer", "std_crawled_data", "std_data")
