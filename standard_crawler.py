@@ -209,6 +209,11 @@ def page_crawler(start_page, chrome_path, url, std_idx):
                     is_success = True
                     return std_dict, int(page_num), is_success, std_idx
                 
+                else:
+                    is_success = False
+                # if is_success == False:
+                #     return std_dict, int(page_num), is_success, std_idx
+                
             # 다시 1페이지부터
             start = 2
             
@@ -306,4 +311,4 @@ def main(last_page_no, max_retry_num, chrome_path, url, host, password, schema_n
         
         
 url = "https://standard.go.kr/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502"
-main(1, 10, r"C:\Users\gihok\chatbot\chromedriver.exe", url, "192.168.0.124", "linuxer", "std_crawled_data", "std_data_check")
+main(1700, 10, r"C:\Users\gihok\chatbot\chromedriver.exe", url, "192.168.0.124", "linuxer", "std_crawled_data", "std_data_check")
