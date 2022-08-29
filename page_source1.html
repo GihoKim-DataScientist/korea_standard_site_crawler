@@ -1,0 +1,4759 @@
+<html><head>
+  <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>표준 검색 &gt; 국가표준 | e나라 표준인증</title>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript"> 
+//history.pushState(null, null, location.href);
+//window.onpopstate = function(event) {
+//	history.go(1);
+//};
+</script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ 
+<link type="text/css" href="/KSCI/portal/user/css/contents.css" rel="stylesheet">
+<link type="text/css" href="/KSCI/portal/user/css/jquery-ui-1.10.2.custom.css" rel="stylesheet">
+<link type="text/css" href="/KSCI/portal/user/css/showLoading.css" rel="stylesheet">
+<link type="text/css" href="/KSCI/portal/user/css/chosen.css" rel="stylesheet">
+<link type="text/css" href="/KSCI/portal/user/tsr3/css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="/KSCI/portal/user/tsr3/js/jquery-1.11.1.min.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery-ui.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.ui.datepicker-ko.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.alphanum.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.form.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/tinymce/jquery.tinymce.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/json2.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/common.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/base.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/jquery.showLoading.min.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/chosen.jquery.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/jquery.overlabel.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/menu.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/tsr3/js/common.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/js/pot/search/search.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript">
+var WEB_HOME = "/KSCI";
+var RES_HOME = "/KSCI";
+	$(document).ready(function(){
+		//window.history.forward(0);
+		//$("select").chosen({disable_search:true});
+	});
+</script>
+
+
+<link type="text/css" href="/KSCI/js/pot/lib/fullcalendar-2.0.0/fullcalendar.css" rel="stylesheet">
+<script type="text/javascript"> 
+	<!--
+	var WEB_HOME = "/KSCI";
+	var RES_HOME = "/KSCI";
+	var menuId = "919";
+	var topMenuId = "502";
+	var upperMenuId = "";
+	var pageIndex = "1";
+	var pageUnit = "10";
+	
+	var searchKeyword = decodeURIComponent("");
+	var searchCondition = '';
+		
+	
+	//-->	
+</script>
+<script type="text/javascript" src="/KSCI/js/pot/standardIntro/standardSearchList.js" language="javscript"></script> 
+<script type="text/javascript">
+	<!--
+	if( ''  != ''){
+		getGroupInfo('', '' );
+	}
+
+	if( ''  != ''){
+		getGroupInfo2('' );
+	}	
+
+
+
+	/** 소분류그룹 정보 가져오기 */
+	function getGroupInfo2(detailCodeId, detailCodeName) {
+
+		$("#smallConName").empty();
+		$("#smallConName").append(detailCodeName);
+		
+		var code = detailCodeId.substr(0,1);
+		
+		var writeObject = {
+			"detailCodeId" : code
+		}
+		
+		PortalCommon.getJson({
+			url : WEB_HOME + "/standardIntro/getSmallClass.do?format=json",
+			data : {
+				data : JSON.stringify(writeObject)
+			},
+			success : function(data) {
+				makeGroupInfo2(data, detailCodeId, detailCodeName);
+				
+			}, error : function() {
+				alert("전송 실패 했습니다.");
+			}
+		});
+		
+	}
+
+	function makeGroupInfo2(json,code) {
+
+		var data = json.smallClassList;
+		
+		$("#smallCon").html("");
+		var temp = "";
+		for(var i=0; i<data.length; i++){
+			 //console.log(code+"/"+data[i].detailCodeId+',');
+
+			 /*
+			 if(code == data[i].detailCodeId ){
+				 if(i>=1) temp +='<a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')"><strong><font color="red">'+data[i].detailCodeNm+'()</font></strong></a>,';
+				 if(i==data.length) temp +='<a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')"><strong><font color="red">'+data[i].detailCodeNm+'()</font></strong></a>';
+			 }else{
+				 if(i>=1) temp +='<a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'</a>(),';
+				 if(i==data.length) temp +='<a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'</a>()';
+			 }
+			 */
+			 //if(i>=0) temp +='<li style="height: 55px;"><a style="padding: 11px 0px 0px 25px; font-weight: normal; width: 98px; height: 44px;" href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'('+data[i].cnt+')</a></li>';
+			 //if(i==data.length) temp +='<li style="height: 55px;"><a style="padding: 11px 0px 0px 25px; font-weight: normal; width: 98px; height: 44px;" href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'</a>('+data[i].cnt+')</li>';
+			 if(i>=0) temp +='<li><a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'('+data[i].cnt+')</a></li>';
+			 if(i==data.length) temp +='<li><a href="javascript:fnSearchListMidCode(\''+data[i].detailCodeId+'\')">'+data[i].detailCodeNm+'('+data[i].cnt+')</a></li>';
+		}
+
+		$("#smallCon").append(temp);
+
+	}
+
+	function fnSearchListMidCode(code){
+
+		// listForm 값 reset
+		fnClean();
+		// listForm 값 reset
+		
+		document.listForm.s_stdDetailRealmCode2.value = code;
+		document.listForm.submit();
+	}	
+
+	function fnSearchIscPop(){
+		PortalCommon.popupWindowCenter(WEB_HOME+'/xrf/sta/cmn/icsCodeSearchPopPot.xrf', '',800,458);
+	}
+
+	function setIcsCodeAdd(icsCode, icsNm){
+		
+		//$('#s_icsCode').val(icsCode);
+		$('#s_icsCodeNm').val(icsNm);
+	}
+	
+	$(document).ready(function () {
+		getGroupInfo2('A','(A) 기본');
+		$('#s_koreanStdNm').keypress(function(event) {
+			if ( event.which == 13 ) { 
+				fnSearchList('');   
+			}
+		});
+		$('#s_ksNo').keypress(function(event) {
+			if ( event.which == 13 ) { 
+				fnSearchList('');   
+			}
+		});
+	});
+	
+	//-->	
+	function fnClean(){
+		$('#searchStartDt_v').datepicker('setDate', '');
+		$('#searchEndDt_v').datepicker('setDate', '');
+	
+        $("#s_koreanStdNm").val("");
+        $("#s_ksNo").val("");
+        $("#s_codeClass").val("");
+        $("#s_icsCode").val("");
+        $("#s_icsCodeNm").val("");
+
+        $("#s_stdDetailRealmCode").html("<option value=''>선택해 주세요</option>");
+        $("#s_intrlCcdncDgreeCode").val("");
+        $('input:radio[name="s_intrlstdOrgnzSeCode"]').prop('checked', false);
+        $('input:radio[name="s_intrlstdOrgnzSeCode"]').prop('disabled', true);
+
+        //$('input:radio[name="s_intrlstdOrgnzSeCode"][value=""]').prop('checked', false);
+        $('input:radio[name="s_stdJobProcessTyCode"][value=""]').prop('checked', true);
+
+		$("#searchStartDt_v").val("");
+		$("#searchEndDt_v").val("");
+		$("#searchStartDt").val("");
+		$("#searchEndDt").val("");
+	}
+</script>
+<script type="text/javascript">
+	<!-- 
+
+	function fnGoStdView(ksNo, tmprKsNo,reformNo){
+    	document.listForm.pageIndex.value = pageIndex;
+		document.listForm.pageUnit.value = $("#pageUnit").val();
+		document.listForm.ksNo.value = ksNo;
+		document.listForm.tmprKsNo.value = tmprKsNo;
+		document.listForm.reformNo.value = reformNo;	
+		document.listForm.menuId.value = menuId;
+		document.listForm.topMenuId.value = topMenuId;
+		document.listForm.upperMenuId.value = upperMenuId;				
+		document.listForm.action = WEB_HOME+"/standardIntro/getStandardSearchView.do";
+		$(document.body).showLoading();
+		document.listForm.submit();
+    }	
+
+	//-->	
+</script>
+
+</head>
+<body>
+
+<div class="skip">
+	<a href="#container" onclick="document.getElementById('container').tabIndex = -1;document.getElementById('contents').focus();return false;">본문바로가기</a>
+</div>
+
+<!-- header #################### -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript"> 
+//history.pushState(null, null, location.href);
+//window.onpopstate = function(event) {
+//	history.go(1);
+//};
+</script>
+
+
+
+
+
+<!-- 
+
+
+
+ 
+-->
+
+
+<script type="text/javascript" src="/KSCI/portal/user/tsr3/js/jquery-1.11.1.min.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery-ui.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.ui.datepicker-ko.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.alphanum.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/jquery/jquery.form.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/tinymce/jquery.tinymce.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/lib/json2.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/common.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/base.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/jquery.showLoading.min.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/chosen.jquery.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/jquery.overlabel.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/js/common/menu.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/portal/user/tsr3/js/common.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/KSCI/js/pot/search/search.js" language="javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+function goBack(){
+	window.history.back();
+}
+
+
+//<![CDATA[
+/** 로그아웃 */
+function menu(sn){
+	switch(sn){
+	case 1:
+		$(document.body).showLoading();
+		location.href="/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502&upperMenuId=503";
+		break;
+	case 2:
+		$(document.body).showLoading();
+		location.href="/KSCI/crtfcSystem/searchCrtfcSystemList.do?menuId=60373&topMenuId=536&upperMenuId=537";
+		break;
+	case 3:
+		$(document.body).showLoading();
+		location.href="/KSCI/technologyIntro/getTechnologyList.do?menuId=527&topMenuId=524&upperMenuId=524";
+		break;
+	case 4:
+		$(document.body).showLoading();
+		location.href="/KSCI/pot/tbtnotice/getTbtNoticeReqst.do?menuId=60377&topMenuId=60376&upperMenuId=60376";
+		break;
+	case 5:
+		$(document.body).showLoading();
+		location.href="/KSCI/ksLedger/getKsCrtfcInsttPrdlst.do?menuId=60395&topMenuId=60387&upperMenuId=60393";
+		break;
+	case 6:
+		$(document.body).showLoading();
+		location.href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000007&menuId=560&topMenuId=558&upperMenuId=559";
+		break;
+	case 7:
+		$(document.body).showLoading();
+		location.href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000001&menuId=614&topMenuId=613&upperMenuId=613";
+		break;
+	case 8:
+		$(document.body).showLoading();
+		location.href="/KSCI/pot/introducion/searchIntroducionView.do?intrcnId=0000000017&menuId=701&topMenuId=704&upperMenuId=704";
+		break;
+	}
+	
+}
+
+function topMenu(url,menu,topMenu,upperMenu){
+	
+	$(document.body).showLoading();
+	if(url.indexOf("?")<0){
+		location.href=""+WEB_HOME+url+"?menuId="+menu+"&topMenuId="+topMenu+"&upperMenuId="+upperMenu+"";
+		}else{
+			location.href=""+WEB_HOME+url+"&menuId="+menu+"&topMenuId="+topMenu+"&upperMenuId="+upperMenu+"";
+			}
+	
+	
+}
+
+function goLogOut() {
+
+		PortalCommon.getJson({
+			url : "/KSCI/pot/common/logout.do?format=json",
+			success : function(data) {
+				location.href="/KSCI/pot/common/ssoLogout.do";
+			},error : function(){
+				alert("전송 실패 했습니다.");
+			}
+		});
+
+	}
+
+$(document).ready(function(){
+	$('.relativeDiv label').show();
+    $('.relativeDiv input').prev('label').overlabel();
+});
+//]]>	
+</script>
+
+
+<!--스킵메뉴-->
+<div class="skip_menu">
+	<a href="#contents">본문 바로가기</a>
+	<a href="#menu">주메뉴 바로가기</a>
+</div>
+<!--//스킵메뉴-->
+<!--HEADER-->
+<div id="header">
+	<!--gnb-->
+	<div class="gnb">
+		<div>
+			<h1>국가표준인증 통합정보시스템</h1>
+			<p>
+				<a href="#none" title="e나라표준인증 팸플릿" onclick="javascript:window.open('/KSCI/popup/TopPamphlet.html','popup','scrollbars=yes, resizable=yes, width=860,height=800')">e나라표준인증 팸플릿</a>
+				<a href="#none" title="동영상" onclick="javascript:window.open('/KSCI/popup/TopMovie.html','popup','scrollbars=yes, resizable=yes, width=1000,height=800')">동영상</a>
+			</p>
+		</div>
+		<div>
+			<a href="/KSCI">
+				<img src="/KSCI/portal/user/tsr3/images/h1_logo.png" alt="e나라표준인증로고" title="e나라표준인증">
+			</a>
+			
+    
+			<!-- 로그인전 -->
+			
+				<p>
+					<!-- 
+					<a href="/KSCI/pot/introducion/searchIntroducionView.do?intrcnId=0000000017&menuId=701&topMenuId=700">사이트소개</a>
+					<a href="/KSCI/sitemap/selectSiteMap.do?menuId=713&topMenuId=704" title="사이트맵">사이트맵</a>
+					-->
+					<a href="/KSCI/pot/user/userJoinType.do?menuId=654&amp;topMenuId=652&amp;upperMenuId=652" title="회원가입">회원가입</a>
+					<!--
+					<a href="/KSCI/pot/common/loginView.do?menuId=653&topMenuId=652" class="login" title="로그인"><img src="/KSCI/portal/user/img/layout/user4.gif" alt="로그인"/></a>
+					-->
+					<a href="/KSCI/pot/common/loginView.do?menuId=653&amp;topMenuId=652&amp;upperMenuId=652" title="로그인">로그인</a>
+				</p>
+			
+
+		</div>
+	</div>
+	<!--//gnb-->
+
+	<!--navigation-->
+	<div id="nav">
+		<div class="sticky fixed">
+			<!--상단 메뉴-->
+			<div class="nav_wrap" id="menu">
+				<ul>
+					
+					
+					
+						<!-- 로컬 -->
+						<!--
+						
+						-->
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						<li class="m01 fixed01">
+							<a href="javascript:menu(1)">국가표준</a>
+								<div class="nav_inner_wrap">
+									<div class="box_m01 fixed01">
+										<div class="h2_tit">
+											<strong>국가표준</strong><br><span>대한민국 정부의 표준·인증 정보를<br>e-나라표준인증에서 쉽고 편리하게!</span>
+											</div>
+												<div class="sub"><ul>
+												
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/standardIntro/getStandardSearchList.do','919','502','503')">표준 검색</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502&upperMenuId=503" >국가표준</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/getStandardSearchList.do','919','502','503')">국가표준</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/grpstd/getGrpStdCrtfcReqst.do?menuId=60372&topMenuId=502&upperMenuId=503" >단체표준</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/grpstd/getGrpStdCrtfcReqst.do','60372','502','503')">단체표준</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/standardIntro/standardPrvntc.do','920','502','516')">표준화 활동</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/standardPrvntc.do?menuId=920&topMenuId=502&upperMenuId=516" >KS 예고고시</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/standardPrvntc.do','920','502','516')">KS 예고고시</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/ksNotification/getKsNotificationList.do?menuId=921&topMenuId=502&upperMenuId=516" >KS 고시</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/ksNotification/getKsNotificationList.do','921','502','516')">KS 고시</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/standardizationSurvey.do?menuId=519&topMenuId=502&upperMenuId=516" >표준화 수요조사</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/standardizationSurvey.do','519','502','516')">표준화 수요조사</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/request/getRequestList.do?menuId=512&topMenuId=502&upperMenuId=516" >표준 제정·개정신청</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/request/getRequestList.do','512','502','516')">표준 제정·개정신청</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/standardIntro/ksForApplying.do','517','502','504')">표준이야기</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/ksForApplying.do?menuId=517&topMenuId=502&upperMenuId=504" >국가표준</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/ksForApplying.do','517','502','504')">국가표준</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/ksForEnglish.do?menuId=518&topMenuId=502&upperMenuId=504" >국제표준</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/ksForEnglish.do','518','502','504')">국제표준</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/standardIntro/ksForGroup.do?menuId=60374&topMenuId=502&upperMenuId=504" >단체표준</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/standardIntro/ksForGroup.do','60374','502','504')">단체표준</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/stats/searchStandardStatsList.do','521','502','520')">표준 현황</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/stats/searchStandardStatsList.do?menuId=521&topMenuId=502&upperMenuId=520" >연도별 국가표준(KS) 현황</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/stats/searchStandardStatsList.do','521','502','520')">연도별 국가표준(KS) 현황</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+						
+						</ul></li></ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						<li class="m02 fixed01"><a href="javascript:menu(2)">인증제도</a><div class="nav_inner_wrap"><div class="box_m02 fixed01"><div class="h2_tit"><strong>인증제도</strong><br><span>대한민국 정부의 표준·인증 정보를<br>e-나라표준인증에서 쉽고 편리하게!</span></div><div class="sub"><ul>
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/crtfcSystem/searchCrtfcSystemList.do','545','536','537')">인증검색</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/crtfcSystem/searchCrtfcSystemList.do?menuId=60373&topMenuId=536&upperMenuId=537" >인증제도 검색</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/crtfcSystem/searchCrtfcSystemList.do','60373','536','537')">인증제도 검색</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/crtfcPotIntro/crtfcSystemIntro.do','540','536','539')">인증이야기</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/crtfcPotIntro/crtfcSystemIntro.do?menuId=540&topMenuId=536&upperMenuId=539" >인증제도란?</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/crtfcPotIntro/crtfcSystemIntro.do','540','536','539')">인증제도란?</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/crtfcPotIntro/crtfcMarkIntro.do?menuId=541&topMenuId=536&upperMenuId=539" >국가통합인증마크(KC)</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/crtfcPotIntro/crtfcMarkIntro.do','541','536','539')">국가통합인증마크(KC)</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/crtfcDeptPot/searchCrtfcDeptPotList.do','945','536','549')">인증현황</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/crtfcDeptPot/searchSubList.do?menuId=945&topMenuId=536&upperMenuId=549" >인증제도 현황</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/crtfcDeptPot/searchSubList.do','945','536','549')">인증제도 현황</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+						
+						</ul></li></ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						<li class="m03 fixed01"><a href="javascript:menu(3)">기술기준</a><div class="nav_inner_wrap"><div class="box_m03 fixed01"><div class="h2_tit"><strong>기술기준</strong><br><span>대한민국 정부의 표준·인증 정보를<br>e-나라표준인증에서 쉽고 편리하게!</span></div><div class="sub"><ul>
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/technologyIntro/getTechnologyList.do','527','524','524')">기술기준 검색</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/technologyIntro/technologyInfo.do','944','524','525')">기술기준이야기</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/technologyIntro/technologyInfo.do?menuId=944&topMenuId=524&upperMenuId=525" >기술기준이야기</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/technologyIntro/technologyInfo.do','944','524','525')">기술기준이야기</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/technologyIntro/technologyAssess.do?menuId=969&topMenuId=524&upperMenuId=525" >기술규제영향평가</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/technologyIntro/technologyAssess.do','969','524','525')">기술규제영향평가</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/techMiryfcStats/searchTechMiryfcStats.do','943','524','524')">부처별 기술기준 현황</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+						
+						</ul></li></ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						<li class="m04 fixed01"><a href="javascript:menu(4)">TBT 정보</a><div class="nav_inner_wrap"><div class="box_m04 fixed01"><div class="h2_tit"><strong>TBT정보</strong><br><span>대한민국 정부의 표준·인증 정보를<br>e-나라표준인증에서 쉽고 편리하게!</span></div><div class="sub"><ul>
+						
+						
+						
+						
+						
+							
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/pot/tbtnotice/getTbtNoticeReqst.do','60377','60376','60376')">TBT통보문검색</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+						
+						</ul></li></ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						<li class="m05 fixed01"><a href="javascript:menu(5)">인증지원</a><div class="nav_inner_wrap"><div class="box_m01 fixed01"><div class="h2_tit"><strong>인증지원</strong><br><span>대한민국 정부의 표준·인증 정보를<br>e-나라표준인증에서 쉽고 편리하게!</span></div><div class="sub"><ul>
+						
+						
+						
+						
+							
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/ksLedger/getKsCrtfcInsttPrdlst.do','60395','60387','60393')">KS인증</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/ksLedger/getKsCrtfcInsttPrdlst.do?menuId=60395&topMenuId=60387&upperMenuId=60393" >KS인증기관품목현황</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/ksLedger/getKsCrtfcInsttPrdlst.do','60395','60387','60393')">KS인증기관품목현황</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+											  <!--  <li>- <a href="/KSCI/crtfcEntrps/getCrtfcEntrpsList.do?search=OK&menuId=60396&topMenuId=60387&upperMenuId=60393" >인증신청</a></li>-->
+											 <li>- <a href="javascript:topMenu('/crtfcEntrps/getCrtfcEntrpsList.do?search=OK','60396','60387','60393')">인증신청</a></li>
+										
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/exclicgds/getEnergyinterface.do','60391','60387','60390')">고효율기자재인증</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/exclicgds/getEnergyinterface.do?menuId=60391&topMenuId=60387&upperMenuId=60390" >업체 및 사용자정보</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/exclicgds/getEnergyinterface.do','60391','60387','60390')">업체 및 사용자정보</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/exclicgds/getEnergyinterfaceReqst.do?menuId=60392&topMenuId=60387&upperMenuId=60390" >인증신청</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/exclicgds/getEnergyinterfaceReqst.do','60392','60387','60390')">인증신청</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+									
+										</ul>
+									</li>
+									
+								
+
+								
+									
+									
+								        								
+								        
+								        
+								        	<li> <a href="javascript:topMenu('/exclicgds/getKcCertification1.do','60421','60387','60420')">KC인증</a>
+								        										        
+							        	
+											<ul>
+												<li></li>
+								
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/exclicgds/getKcCertification1.do?menuId=60421&topMenuId=60387&upperMenuId=60420" >인증신청(1)</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/exclicgds/getKcCertification1.do','60421','60387','60420')">인증신청(1)</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/exclicgds/getKcCertification2.do?menuId=60422&topMenuId=60387&upperMenuId=60420" >인증신청(2)</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/exclicgds/getKcCertification2.do','60422','60387','60420')">인증신청(2)</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+								
+
+								
+								
+									
+								        								
+								        
+								        
+								        	  <!-- <li>- <a href="/KSCI/exclicgds/getKcCertification3.do?menuId=60423&topMenuId=60387&upperMenuId=60420" >인증신청(3)</a></li> -->
+								         	 <li>- <a href="javascript:topMenu('/exclicgds/getKcCertification3.do','60423','60387','60420')">인증신청(3)</a></li> 
+								        
+							        	
+								 
+							
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						</ul></li></ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						<li class="m06 fixed02" style="margin-left:240px;"><a href="javascript:menu(6)">지식공감</a><div class="nav_inner_wrap"><div class="box_m06 fixed02"><div class="sub"><ul>
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000007&menuId=560&topMenuId=558&upperMenuId=559" >정책 동향</a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000007','560','558','559')">정책 동향</a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000010&menuId=60400&topMenuId=558&upperMenuId=558" >간행물</a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000010','60400','558','558')">간행물</a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+								        
+								        	<!--  <li>- <a href="/KSCI/dictionary/getDictionaryList.do?menuId=60401&topMenuId=558&upperMenuId=558" >표준용어사전</a></li>-->
+								        	<li>- <a href="javascript:topMenu('/dictionary/getDictionaryList.do','60401','558','558')">표준용어사전</a></li> 
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000027&menuId=60402&topMenuId=558&upperMenuId=558" >동영상자료실</a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000027','60402','558','558')">동영상자료실</a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						</ul></div></div></div></li>
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						<li class="m07 fixed02"><a href="javascript:menu(7)">알림마당</a><div class="nav_inner_wrap"><div class="box_m07 fixed02"><div class="sub"><ul>
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000001&menuId=614&topMenuId=613&upperMenuId=613" >공지사항 </a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000001','614','613','613')">공지사항 </a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000002&menuId=618&topMenuId=613&upperMenuId=613" >행사안내 </a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000002','618','613','613')">행사안내 </a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000003&menuId=622&topMenuId=613&upperMenuId=613" >보도자료 </a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000003','622','613','613')">보도자료 </a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						</ul></div></div></div></li>
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						<li class="m08 fixed02"><a href="javascript:menu(8)">고객지원</a><div class="nav_inner_wrap"><div class="box_m08 fixed02"><div class="sub"><ul>
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/pot/introducion/searchIntroducionView.do?intrcnId=0000000017&menuId=701&topMenuId=704&upperMenuId=704" >사이트 소개</a></li>-->
+										<li>- <a href="javascript:topMenu('/pot/introducion/searchIntroducionView.do?intrcnId=0000000017','701','704','704')">사이트 소개</a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000014&menuId=605&topMenuId=704&upperMenuId=704" >자주하는 질문 </a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000014','605','704','704')">자주하는 질문 </a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+										<!--  	<li>- <a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000013&menuId=599&topMenuId=704&upperMenuId=704" >관련사이트 </a></li>-->
+										<li>- <a href="javascript:topMenu('/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000013','599','704','704')">관련사이트 </a></li> 
+										
+								        
+							        	
+								  
+								
+						
+					
+						<!-- 운영 -->
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+							
+							
+								
+									
+								        								
+								        
+								        
+								        	<!--  <li>- <a href="/KSCI/onlineManual/getOnlineManualUserView.do?menuId=20025&topMenuId=704&upperMenuId=704" >온라인 매뉴얼</a></li>-->
+								        	<li>- <a href="javascript:topMenu('/onlineManual/getOnlineManualUserView.do','20025','704','704')">온라인 매뉴얼</a></li> 
+								        
+							        	
+								  
+								
+						
+					
+					</ul></div></div></div></li>
+				</ul>
+			</div>
+			<!--//상단 메뉴-->
+
+			<!--통합검색 & 사이트맵-->
+			<div class="nav_wrap2">
+				<ul>
+					<!--사이트맵-->
+					<li class="m10  fixed03">
+						<a href="#none" class="toggle"><span>사이트맵</span></a>
+						<!--사이트맵 펼침-->
+						<div class="nav_box_wrap">
+							
+							<ul>
+								
+
+									
+
+										
+
+										
+											<li>
+											
+												
+													<a href="/KSCI/standardIntro/getStandardSearchList.do?menuId=919&amp;topMenuId=502&amp;upperMenuId=503">국가표준</a>
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/standardIntro/getStandardSearchList.do?menuId=503&amp;topMenuId=502&amp;upperMenuId=503">표준 검색</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/standardIntro/standardPrvntc.do?menuId=516&amp;topMenuId=502&amp;upperMenuId=516">표준화 활동</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/standardIntro/ksForApplying.do?menuId=504&amp;topMenuId=502&amp;upperMenuId=504">표준이야기</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/stats/searchStandardStatsList.do?menuId=520&amp;topMenuId=502&amp;upperMenuId=520">표준 현황</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													<a href="/KSCI/crtfcSystem/searchCrtfcSystemList.do?menuId=60373&amp;topMenuId=536&amp;upperMenuId=537">인증제도</a>
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/crtfcSystem/searchCrtfcSystemList.do?menuId=537&amp;topMenuId=536&amp;upperMenuId=537">인증검색</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/crtfcPotIntro/crtfcSystemIntro.do?menuId=539&amp;topMenuId=536&amp;upperMenuId=539">인증이야기</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/crtfcDeptPot/searchCrtfcDeptPotList.do?menuId=549&amp;topMenuId=536&amp;upperMenuId=549">인증현황</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													<a href="/KSCI/technologyIntro/getTechnologyList.do?menuId=527&amp;topMenuId=524&amp;upperMenuId=524">기술기준</a>
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/technologyIntro/getTechnologyList.do?menuId=527&amp;topMenuId=524&amp;upperMenuId=524">기술기준 검색</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/technologyIntro/technologyInfo.do?menuId=525&amp;topMenuId=524&amp;upperMenuId=525">기술기준이야기</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/techMiryfcStats/searchTechMiryfcStats.do?menuId=943&amp;topMenuId=524&amp;upperMenuId=524">부처별 기술기준 현황</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													
+
+													<a href="/KSCI/pot/tbtnotice/getTbtNoticeReqst.do?menuId=60377&amp;topMenuId=60376&amp;upperMenuId=60376">TBT 정보</a>
+													
+
+													
+
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/pot/tbtnotice/getTbtNoticeReqst.do?menuId=60377&amp;topMenuId=60376&amp;upperMenuId=60376">TBT통보문검색</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													
+
+													
+
+													<a href="/KSCI/ksLedger/getKsCrtfcInsttPrdlst.do?menuId=60395&amp;topMenuId=60387&amp;upperMenuId=60393">인증지원</a>
+													
+
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/ksLedger/getKsCrtfcInsttPrdlst.do?menuId=60393&amp;topMenuId=60387&amp;upperMenuId=60393">KS인증</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/exclicgds/getEnergyinterface.do?menuId=60390&amp;topMenuId=60387&amp;upperMenuId=60390">고효율기자재인증</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/exclicgds/getKcCertification1.do?menuId=60420&amp;topMenuId=60387&amp;upperMenuId=60420">KC인증</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													
+
+													
+
+													
+
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000007&amp;menuId=560&amp;topMenuId=558&amp;upperMenuId=559">지식공감</a>
+													
+
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000007&amp;menuId=559&amp;topMenuId=558&amp;upperMenuId=559">정책 동향</a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000010&amp;menuId=60400&amp;topMenuId=558&amp;upperMenuId=558">간행물</a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/dictionary/getDictionaryList.do?menuId=60401&amp;topMenuId=558&amp;upperMenuId=558">표준용어사전</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000027&amp;menuId=60402&amp;topMenuId=558&amp;upperMenuId=558">동영상자료실</a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000001&amp;menuId=614&amp;topMenuId=613&amp;upperMenuId=613">알림마당</a>
+													
+
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000001&amp;menuId=614&amp;topMenuId=613&amp;upperMenuId=613">공지사항 </a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000002&amp;menuId=618&amp;topMenuId=613&amp;upperMenuId=613">행사안내 </a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000003&amp;menuId=622&amp;topMenuId=613&amp;upperMenuId=613">보도자료 </a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+										
+											</ul></li>
+										
+
+										
+											<li>
+											
+												
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													
+
+													<a href="/KSCI/pot/introducion/searchIntroducionView.do?intrcnId=0000000017&amp;menuId=701&amp;topMenuId=704&amp;upperMenuId=704">고객지원</a>
+													
+
+												<ul>
+										
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/pot/introducion/searchIntroducionView.do?intrcnId=0000000017&amp;menuId=701&amp;topMenuId=704&amp;upperMenuId=704">사이트 소개</a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000014&amp;menuId=605&amp;topMenuId=704&amp;upperMenuId=704">자주하는 질문 </a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+												<li>- 
+													<a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000013&amp;menuId=599&amp;topMenuId=704&amp;upperMenuId=704">관련사이트 </a>
+												</li>
+											
+
+									        
+
+								        	
+									
+
+								
+
+									
+
+									
+										
+
+									        	
+											
+									        
+
+									        
+									        	<li>- 
+													<a href="/KSCI/onlineManual/getOnlineManualUserView.do?menuId=20025&amp;topMenuId=704&amp;upperMenuId=704">온라인 매뉴얼</a>
+												</li>
+									        
+
+								        	
+									
+
+								
+								
+								</ul></li>
+								
+								
+							</ul>
+						</div>
+					</li>
+					<!--//사이트맵-->
+				</ul>
+			</div>
+			<!--//통합검색 & 사이트맵-->
+		</div>
+	</div>
+	<!--//navigation-->
+</div>
+<!--//HEADER--> 
+<!-- // header #################### -->
+	
+	<!--BODY WRAP-->
+	<div id="body_wrap">
+		<!-- area_LNB -->
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript"> 
+//history.pushState(null, null, location.href);
+//window.onpopstate = function(event) {
+//	history.go(1);
+//};
+</script>
+
+
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+
+function topMenu(url,menu,topMenu,upperMenu){
+	
+	$(document.body).showLoading();
+	if(url.indexOf("?")<0){
+		location.href=""+WEB_HOME+url+"?menuId="+menu+"&topMenuId="+topMenu+"&upperMenuId="+upperMenu+"";
+		}else{
+			location.href=""+WEB_HOME+url+"&menuId="+menu+"&topMenuId="+topMenu+"&upperMenuId="+upperMenu+"";
+			}
+	
+	
+}
+
+
+
+
+//]]>	
+</script>
+	
+	
+		<div class="lnb_wrap">
+			<div id="lnb">
+				<!-- 로컬 -->	
+				<!--
+				
+					<p class="m01">국가표준</p>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							
+				-->			
+				<!-- 운영 -->
+				
+					<p class="m01">국가표준</p>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				<ul>
+		            
+		            
+		            
+		            
+		            
+					
+						
+										
+				    			
+									
+																						    
+								    
+										<li>
+											<a id="a_503" href="#none"><span>표준 검색</span></a>
+											<ul>
+									    		
+																			    
+								    	
+									
+				    				
+										
+				    				
+				    				
+									
+									    
+										
+		            					
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502&upperMenuId=503" class="on">4]국가표준</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/getStandardSearchList.do','919','502','503')" class="on">국가표준</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/grpstd/getGrpStdCrtfcReqst.do?menuId=60372&topMenuId=502&upperMenuId=503" >4]단체표준</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/grpstd/getGrpStdCrtfcReqst.do','60372','502','503')">단체표준</a></li>
+											
+								        
+							        
+					    			
+										
+				    			
+									
+									
+											</ul>
+										</li>
+									    
+																						    
+								    
+										<li>
+											<a id="a_516" href="#none"><span>표준화 활동</span></a>
+											<ul>
+									    		
+																			    
+								    	
+									
+				    				
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/standardPrvntc.do?menuId=920&topMenuId=502&upperMenuId=516" >4]KS 예고고시</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/standardPrvntc.do','920','502','516')">KS 예고고시</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/ksNotification/getKsNotificationList.do?menuId=921&topMenuId=502&upperMenuId=516" >4]KS 고시</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/ksNotification/getKsNotificationList.do','921','502','516')">KS 고시</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/standardizationSurvey.do?menuId=519&topMenuId=502&upperMenuId=516" >4]표준화 수요조사</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/standardizationSurvey.do','519','502','516')">표준화 수요조사</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/request/getRequestList.do?menuId=512&topMenuId=502&upperMenuId=516" >4]표준 제정·개정신청</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/request/getRequestList.do','512','502','516')">표준 제정·개정신청</a></li>
+											
+								        
+							        
+					    			
+										
+				    			
+									
+									
+											</ul>
+										</li>
+									    
+																						    
+								    
+										<li>
+											<a id="a_504" href="#none"><span>표준이야기</span></a>
+											<ul>
+									    		
+																			    
+								    	
+									
+				    				
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/ksForApplying.do?menuId=517&topMenuId=502&upperMenuId=504" >4]국가표준</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/ksForApplying.do','517','502','504')">국가표준</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/ksForEnglish.do?menuId=518&topMenuId=502&upperMenuId=504" >4]국제표준</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/ksForEnglish.do','518','502','504')">국제표준</a></li>
+											
+								        
+							        
+					    			
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/standardIntro/ksForGroup.do?menuId=60374&topMenuId=502&upperMenuId=504" >4]단체표준</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/standardIntro/ksForGroup.do','60374','502','504')">단체표준</a></li>
+											
+								        
+							        
+					    			
+										
+				    			
+									
+									
+											</ul>
+										</li>
+									    
+																						    
+								    
+										<li>
+											<a id="a_520" href="#none"><span>표준 현황</span></a>
+											<ul>
+									    		
+																			    
+								    	
+									
+				    				
+										
+				    				
+				    				
+									 										    						    			
+									
+								        
+																										
+								        
+								        
+								        	
+								        		
+											<!--  	<li><a href="/KSCI/stats/searchStandardStatsList.do?menuId=521&topMenuId=502&upperMenuId=520" >4]연도별 국가표준(KS) 현황</a></li>-->
+											<li class="noDepth"><a href="javascript:topMenu('/stats/searchStandardStatsList.do','521','502','520')">연도별 국가표준(KS) 현황</a></li>
+											
+								        
+							        
+					    			
+							
+							
+									</ul>
+								</li>
+										
+						
+													
+				</ul>
+			<script type="text/javascript">
+			//<![CDATA[
+					var curMenuLevel = 2;
+					var a;
+					var li;
+					var liCnt;
+					var ul;
+					var ulCnt;	
+					ul = $('#a_'+919).parent().parent();
+					liCnt = ul.children().length;
+					ul.children().each(function(idx){ liCnt = $(this).find('li').children().length; li = $(this); if(liCnt < 1){ li.find('ul').remove(); } });
+					switch(curMenuLevel){
+					case 1:
+						a = $('#a_'+919); li = $('#a_'+919).parent(); ulCnt = li.find('ul').children().length; if(ulCnt < 1){ li.find('ul').remove(); li.addClass('noDepth on'); } break;
+					case 2:
+						a = $('#a_'+); li = $('#a_'+).parent(); a.next().slideDown(300); break;
+					}
+			//]]>
+				</script>			
+			</div>
+		</div>
+	
+
+	
+		<!-- // area_LNB -->
+
+		<!--CONTENT-->
+		<div class="content_wrap" id="contents">
+			<div class="inner">
+			<!--h4_location-->
+			<!-- 네비게이션 및 타이틀을 메뉴디비에서 가져옴 -->
+			
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript"> 
+//history.pushState(null, null, location.href);
+//window.onpopstate = function(event) {
+//	history.go(1);
+//};
+</script>
+
+
+
+
+		<div class="h4_box m01">
+			<h4>국가표준</h4>
+			<!--location-->
+			<p>
+				<a href="/KSCI"><span>처음으로</span></a>
+				
+						
+						<span>&gt;</span>	
+						
+							
+						        								
+						        
+						        	
+						        	<!--
+									<a href="/KSCI/standardIntro/getStandardIntroMain.do">표준</a>	
+						        	-->
+									표준	        	
+						        
+					        								
+						
+							
+						        								
+						        
+						        	
+						        	<!--
+									<a href="/KSCI/standardIntro/getStandardSearchList.do">표준 검색</a>	
+						        	-->
+									표준 검색	        	
+						        
+					        								
+						
+							
+						        								
+						        
+									<em>국가표준</em>
+								
+						        
+					        								
+						
+					
+					       
+			</p>
+			<!--//location-->
+		</div>
+		
+		
+		
+
+
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function ()
+		{
+			//var title= "e나라 표준인증";
+			//var title = ''; 
+			var title =''; 
+			/*
+			 
+						
+					
+						
+					        
+					        	title += '표준';
+													
+					        
+				        								
+					
+						
+					        						
+					        
+					        	title += ' > 표준 검색'; 
+					        
+				        								
+					
+						
+					        						
+					        
+					        	title += ' > 국가표준'; 
+					        
+				        								
+					
+				
+			 		
+			*/
+			 
+					
+				
+					
+				        
+				        	title += '';
+							
+						 	
+					
+				        
+			        								
+				
+					
+				        	
+						 
+				        	title += '표준 검색';
+							
+					
+				        
+			        								
+				
+					
+				        	
+						 	
+					
+				        
+		        
+				        	   title += ' > 국가표준'; 
+				        	
+					    
+			        								
+				
+			
+		 		
+		   document.title = title + ' | e나라 표준인증' ;
+		
+		});
+	</script>
+
+	
+			<!--//h4_location-->	
+
+			<form id="standardSearchVO" name="listForm" action="/KSCI/standardIntro/getStandardSearchList.do" method="post">
+				
+					<input id="pageUnit" name="pageUnit" type="hidden" value="10">
+					<input id="pageIndex" name="pageIndex" type="hidden" value="1">
+					<input id="searchCondition" name="searchCondition" type="hidden" value="">
+					<input id="searchKeyword" name="searchKeyword" type="hidden" value="">
+					<input id="ksNo" name="ksNo" type="hidden" value="">
+					<input id="tmprKsNo" name="tmprKsNo" type="hidden" value="">
+					<input id="reformNo" name="reformNo" type="hidden" value="">
+					<input id="tabSection" name="tabSection" value="CNDT" type="hidden">
+					<input id="menuId" name="menuId" value="919" type="hidden">
+					<input id="topMenuId" name="topMenuId" value="502" type="hidden">
+					<input id="upperMenuId" name="upperMenuId" type="hidden" value="">
+					<input id="searchStartDt" name="searchStartDt" type="hidden" value="">
+			        <input type="hidden" id="searchEndDt" name="searchEndDt" title="구분" value="">
+					<input type="hidden" id="s_stdDetailRealmCode2" name="s_stdDetailRealmCode2" value="">
+				
+
+				<!--content_inner-->
+				<div class="content_inner">
+
+					<!--tabs_wrap-->
+					<div id="tabs-container">
+						<ul class="tabs-menu">
+								<li class="current"><a href="#tab-1">조건검색</a></li>
+								<li><a onclick="location.href='/KSCI/standardIntro/getStandardSearchSubList.do?menuId=919&amp;topMenuId=502&amp;upperMenuId=503'">부문검색</a></li>
+						</ul>
+						<div class="tab">
+								<!--조건검색-->
+								<div id="tab-1" class="tab-content">
+									<!--table search-->
+									<div class="table search">
+										<table summary="검색어,표준번호,표준분야,ISC코드,부합화표준,구분,고시일">
+											<caption>국가표준의 조건 검색</caption>
+											<colgroup>
+												<col width="10%">
+												<col width="*">
+												<col width="10%">
+												<col width="*">
+											</colgroup>
+											<tbody>
+												<tr>
+													<th scope="row"><label for="s_koreanStdNm">표준명</label></th>
+													<td colspan="3">
+														<input type="text" value="" id="s_koreanStdNm" name="s_koreanStdNm" style="width:96%">
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><label for="s_ksNo">표준번호</label></th>
+													<td colspan="3">
+														<input type="text" value="" id="s_ksNo" name="s_ksNo">
+														<span class="tip01">※ 공백없이 입력(예:KSA0001 또는 0001)</span>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><label for="s_codeClass">표준분야</label></th>
+													<td colspan="3">
+														 <select title="" name="s_codeClass" id="s_codeClass" onchange="getGroupInfo(this.value,'')">
+															<option value="">전체</option>
+																								
+																<option value="A">(A) 기본</option>
+																								
+																<option value="B">(B) 기계</option>
+																								
+																<option value="C">(C) 전기전자</option>
+																								
+																<option value="D">(D) 금속</option>
+																								
+																<option value="E">(E) 광산</option>
+																								
+																<option value="F">(F) 건설</option>
+																								
+																<option value="G">(G) 일용품</option>
+																								
+																<option value="H">(H) 식품</option>
+																								
+																<option value="I">(I) 환경</option>
+																								
+																<option value="J">(J) 생물</option>
+																								
+																<option value="K">(K) 섬유</option>
+																								
+																<option value="L">(L) 요업</option>
+																								
+																<option value="M">(M) 화학</option>
+																								
+																<option value="P">(P) 의료</option>
+																								
+																<option value="Q">(Q) 품질경영</option>
+																								
+																<option value="R">(R) 수송기계</option>
+																								
+																<option value="S">(S) 서비스</option>
+																								
+																<option value="T">(T) 물류</option>
+																								
+																<option value="V">(V) 조선</option>
+																								
+																<option value="W">(W) 항공우주</option>
+																								
+																<option value="X">(X) 정보</option>
+																								
+																<option value="Z">(Z)기타</option>
+															
+														</select>						
+														<select title="" name="s_stdDetailRealmCode" id="s_stdDetailRealmCode">
+															<option value="">선택해 주세요</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><label for="s_intrlCcdncDgreeCode">부합화표준</label></th>
+													<td>
+														<select title="" name="s_intrlCcdncDgreeCode" id="s_intrlCcdncDgreeCode">
+															<option value="">선택해 주세요</option>
+																								
+																<option value="0001">IDT 일치</option>
+																								
+																<option value="0002">MOD 부분 일치</option>
+																								
+																<option value="0003">NEQ 동일하지 않음</option>
+																								
+																<option value="0004">해당없음</option>
+															
+														</select>
+														<input type="radio" id="s_intrlstdOrgnzSeCode" name="s_intrlstdOrgnzSeCode" value="01" disabled=""> <label for="">ISO</label>
+														<input type="radio" id="s_intrlstdOrgnzSeCode" name="s_intrlstdOrgnzSeCode" value="10" disabled=""> <label for="">IEC</label>
+													</td>
+													<th scope="row"><label for="s_stdJobProcessTyCode">구분</label></th>
+													<td>
+													    <input type="radio" class="mrg-l5" id="s_stdJobProcessTyCode" name="s_stdJobProcessTyCode" value="" checked=""> <label for="ra">전체</label>
+										                <input type="radio" class="mrg-l5" id="s_stdJobProcessTyCode" name="s_stdJobProcessTyCode" value="0003"> <label for="ra2">확인</label>
+										                <input type="radio" class="mrg-l5" id="s_stdJobProcessTyCode" name="s_stdJobProcessTyCode" value="0004"> <label for="ra3">폐지</label>	
+										                <input type="radio" class="mrg-l5" id="s_stdJobProcessTyCode" name="s_stdJobProcessTyCode" value="0001"> <label for="ra4">제정</label>
+										                <input type="radio" class="mrg-l5" id="s_stdJobProcessTyCode" name="s_stdJobProcessTyCode" value="0002"> <label for="ra5">개정</label>				
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><label for="s_icsCode">ICS코드</label></th>
+													<td>
+														<input type="text" id="s_icsCode" name="s_icsCode" title="ICS코드" value="">
+													</td>
+													<th scope="row"><label for="s_icsCodeNm">ICS코드명</label></th>
+													<td>
+														<input type="text" id="s_icsCodeNm" name="s_icsCodeNm" title="ICS코드명" value=""><input type="button" class="ic_search02 white02" value="검색" onclick="javascript:fnSearchIscPop()">
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><label for="">고시일</label></th>
+													<td colspan="3">
+														<input type="text" id="searchStartDt_v" name="searchStartDt_v" title="시작날짜를 입력합니다. 예)YYYY-MM-DD" value="" style="width:80px" class="hasDatepicker"><img class="ui-datepicker-trigger" src="/KSCI/portal/user/tsr3/images/ic_carlendar.png" alt="시작일자" title="시작일자">
+														~
+														<input type="text" id="searchEndDt_v" name="searchEndDt_v" title="종료날짜를 입력합니다. 예)YYYY-MM-DD" value="" style="width:80px" class="hasDatepicker"><img class="ui-datepicker-trigger" src="/KSCI/portal/user/tsr3/images/ic_carlendar.png" alt="종료일자" title="종료일자">
+													</td>
+												</tr>
+												<tr>
+													<td colspan="4">
+														<div class="ln-t">
+															<input type="button" value="검색" class="ic_search01 small2 blue01" onclick="javascript:fnSearchList('')">
+															<input type="button" value="초기화" class="ic_reset  small2 white01" onclick="javascript:fnClean('')">
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table search-->
+
+								</div>
+								<!--//조건검색-->
+
+
+								<!--부문검색-->
+								<div id="tab-2" class="tab-content">
+									<!--table search-->
+									<div class="search_box01">
+										<!--left list-->
+										<div class="left">
+											<ul>
+												
+													
+														
+															<li><a class="ic_01" href="javascript:getGroupInfo2('A','(A) 기본')">(A) 기본<span>(8)</span></a></li>
+														
+															<li><a class="ic_02" href="javascript:getGroupInfo2('B','(B) 기계')">(B) 기계<span>(12)</span></a></li>
+														
+															<li><a class="ic_03" href="javascript:getGroupInfo2('C','(C) 전기전자')">(C) 전기전자<span>(11)</span></a></li>
+														
+															<li><a class="ic_04" href="javascript:getGroupInfo2('D','(D) 금속')">(D) 금속<span>(11)</span></a></li>
+														
+															<li><a class="ic_05" href="javascript:getGroupInfo2('E','(E) 광산')">(E) 광산<span>(6)</span></a></li>
+														
+															<li><a class="ic_06" href="javascript:getGroupInfo2('F','(F) 건설')">(F) 건설<span>(5)</span></a></li>
+														
+															<li><a class="ic_07" href="javascript:getGroupInfo2('G','(G) 일용품')">(G) 일용품<span>(7)</span></a></li>
+														
+															<li><a class="ic_08" href="javascript:getGroupInfo2('H','(H) 식품')">(H) 식품<span>(5)</span></a></li>
+														
+															<li><a class="ic_09" href="javascript:getGroupInfo2('I','(I) 환경')">(I) 환경<span>(10)</span></a></li>
+														
+															<li><a class="ic_10" href="javascript:getGroupInfo2('J','(J) 생물')">(J) 생물<span>(6)</span></a></li>
+														
+															<li><a class="ic_11" href="javascript:getGroupInfo2('K','(K) 섬유')">(K) 섬유<span>(6)</span></a></li>
+														
+															<li><a class="ic_12" href="javascript:getGroupInfo2('L','(L) 요업')">(L) 요업<span>(10)</span></a></li>
+														
+															<li><a class="ic_13" href="javascript:getGroupInfo2('M','(M) 화학')">(M) 화학<span>(11)</span></a></li>
+														
+															<li><a class="ic_14" href="javascript:getGroupInfo2('P','(P) 의료')">(P) 의료<span>(8)</span></a></li>
+														
+															<li><a class="ic_15" href="javascript:getGroupInfo2('Q','(Q) 품질경영')">(Q) 품질경영<span>(7)</span></a></li>
+														
+															<li><a class="ic_16" href="javascript:getGroupInfo2('R','(R) 수송기계')">(R) 수송기계<span>(11)</span></a></li>
+														
+															<li><a class="ic_17" href="javascript:getGroupInfo2('S','(S) 서비스')">(S) 서비스<span>(4)</span></a></li>
+														
+															<li><a class="ic_18" href="javascript:getGroupInfo2('T','(T) 물류')">(T) 물류<span>(6)</span></a></li>
+														
+															<li><a class="ic_19" href="javascript:getGroupInfo2('V','(V) 조선')">(V) 조선<span>(6)</span></a></li>
+														
+															<li><a class="ic_20" href="javascript:getGroupInfo2('W','(W) 항공우주')">(W) 항공우주<span>(7)</span></a></li>
+														
+															<li><a class="ic_21" href="javascript:getGroupInfo2('X','(X) 정보')">(X) 정보<span>(8)</span></a></li>
+														
+															<li><a class="ic_22" href="javascript:getGroupInfo2('Z','(Z)기타')">(Z)기타<span>(1)</span></a></li>
+														
+													
+													
+													
+											</ul>
+										</div>
+										<!--//left list-->
+
+										<!--rignt view-->
+										<div class="right">
+											<div class="content_box list01">
+												<ul id="smallCon"><li><a href="javascript:fnSearchListMidCode('A10')">(A10) 기본일반(305)</a></li><li><a href="javascript:fnSearchListMidCode('A11')">(A11) 방사선(능)관리(144)</a></li><li><a href="javascript:fnSearchListMidCode('A12')">(A12) 가이드(25)</a></li><li><a href="javascript:fnSearchListMidCode('A13')">(A13) 인간공학(71)</a></li><li><a href="javascript:fnSearchListMidCode('A14')">(A14) 신인성관리(62)</a></li><li><a href="javascript:fnSearchListMidCode('A15')">(A15) 문화(202)</a></li><li><a href="javascript:fnSearchListMidCode('A16')">(A16) 사회시스템(9)</a></li><li><a href="javascript:fnSearchListMidCode('A17')">(A17) 기타(33)</a></li></ul>												
+											</div>
+										</div>
+										<!--//rignt view-->
+									</div>
+									<!--//table search-->
+								</div>
+								<!--//부문검색-->
+						</div>
+						
+						<!--table list-->
+						<div class="table list">
+							<div class="total">
+								<span>전체 <strong>32,359</strong>,</span>
+								<span>페이지 <strong>1/3,236</strong></span>
+								<div class="fr">
+									<select id="PageUnit" name="PageUnit">
+										<option selected="" value="10">10개 </option>
+										<option value="20">20개 </option>
+										<option value="30">30개 </option>
+										<option value="50">50개 </option>
+									</select>
+									<input class="gray03 small nobor" type="button" value="적용" onclick="fnSearchList()">					
+								</div>
+							</div>
+							<table summary="No	,표준번호,표준명,개정/개정/확인일,고시번호,담당부서,담당자">
+								<caption>국가표준의 부문검색의 목록</caption>
+								<colgroup>
+									<col width="8%">
+									<col width="15%">
+									<col width="*">
+									<col width="15%">
+									<col width="15%">
+									<col width="15%">
+									<col width="10%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">No</th>
+										<th scope="col">표준번호</th>
+										<th scope="col">표준명</th>
+										<th scope="col">개정/개정/확인일</th>
+										<th scope="col">고시번호</th>
+										<th scope="col">담당부서</th>
+										<th scope="col">담당자</th>
+									</tr>
+								</thead>
+								<tbody>
+										
+										
+												
+												<tr>
+													<td>1</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0001','KSA0001','39');">KS A 0001</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0001','KSA0001','39');">표준서의 서식 및 작성방법</a>
+													
+													</td>
+													<td>2021-01-11</td>
+													<td>2021-0002</td>
+													<td>산업표준혁신과</td>
+													<td>고정하</td>
+												</tr>
+												
+												<tr>
+													<td>2</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0002','KSA0002','06');">KS A 0002</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0002','KSA0002','06');">법정계량 용어</a>
+													
+													<font color="red">(폐지)</font>
+													
+													</td>
+													<td>2019-12-31</td>
+													<td>2019-0597</td>
+													<td>기계융합산업표준과</td>
+													<td>양승배</td>
+												</tr>
+												
+												<tr>
+													<td>3</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0003','KSA0003','02');">KS A 0003</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0003','KSA0003','02');">법정계량 용어</a>
+													
+													<font color="red">(폐지)</font>
+													
+													</td>
+													<td>2013-11-05</td>
+													<td>2013-0596</td>
+													<td>기계융합산업표준과</td>
+													<td>양승배</td>
+												</tr>
+												
+												<tr>
+													<td>4</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0004','KSA0004','05');">KS A 0004</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0004','KSA0004','05');">분석 . 시험의 허용차 통칙</a>
+													
+													<font color="red">(폐지)</font>
+													
+													</td>
+													<td>2002-12-30</td>
+													<td>2002-1794</td>
+													<td>기계융합산업표준과</td>
+													<td>이경희</td>
+												</tr>
+												
+												<tr>
+													<td>5</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0005','KSA0005','19');">KS A 0005</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0005','KSA0005','19');">제도 ― 통칙(도면 작성의 일반코드)</a>
+													
+													</td>
+													<td>2019-12-31</td>
+													<td>2019-0595</td>
+													<td>기계융합산업표준과</td>
+													<td>김민우</td>
+												</tr>
+												
+												<tr>
+													<td>6</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0006','KSA0006','11');">KS A 0006</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0006','KSA0006','11');">시험 장소의 표준 상태</a>
+													
+													</td>
+													<td>2019-12-24</td>
+													<td>2019-0519</td>
+													<td>기계융합산업표준과</td>
+													<td>김민우</td>
+												</tr>
+												
+												<tr>
+													<td>7</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0007','KSA0007','04');">KS A 0007</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0007','KSA0007','04');">음향 용어 ( 기기 )</a>
+													
+													<font color="red">(폐지)</font>
+													
+													</td>
+													<td>2001-11-19</td>
+													<td>2001-0755</td>
+													<td>전기전자정보표준과</td>
+													<td>김성희</td>
+												</tr>
+												
+												<tr>
+													<td>8</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0009','KSA0009','04');">KS A 0009</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0009','KSA0009','04');">음향 용어 ( 음성 . 청각 . 음악 )</a>
+													
+													<font color="red">(폐지)</font>
+													
+													</td>
+													<td>2001-11-19</td>
+													<td>2001-0755</td>
+													<td>전기전자정보표준과</td>
+													<td>김성희</td>
+												</tr>
+												
+												<tr>
+													<td>9</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0010','KSA0010','08');">KS A 0010</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0010','KSA0010','08');">오염 물질 조정 용어</a>
+													
+													</td>
+													<td>2020-12-30</td>
+													<td>2020-0585</td>
+													<td>바이오화학서비스표준과</td>
+													<td>지민호</td>
+												</tr>
+												
+												<tr>
+													<td>10</td>
+													
+													
+													
+														<td><a href="javascript:fnGoStdView('KSA0011','KSA0011','15');">KS A 0011</a> </td>
+													
+													
+													<td class="tl"><a href="javascript:fnGoStdView('KSA0011','KSA0011','15');">물체색의 색 이름</a>
+													
+													</td>
+													<td>2020-12-22</td>
+													<td>2020-0492</td>
+													<td>바이오화학서비스표준과</td>
+													<td>박정은</td>
+												</tr>
+											
+										
+													
+									
+								</tbody>
+							</table>
+						</div>
+						<!--//table list-->
+
+						<!--pagenation-->
+						<div class="page">
+							<div>
+								<div><ul><li class="first"><a href="#none" onclick="fn_link_page(1);return false; "></a></li><li class="prev"><a href="#none" onclick="fn_link_page(1);return false; "></a></li><li><a class="on">1</a></li><li><a href="#none" onclick="fn_link_page(2);return false; ">2</a></li><li><a href="#none" onclick="fn_link_page(3);return false; ">3</a></li><li><a href="#none" onclick="fn_link_page(4);return false; ">4</a></li><li><a href="#none" onclick="fn_link_page(5);return false; ">5</a></li><li><a href="#none" onclick="fn_link_page(6);return false; ">6</a></li><li><a href="#none" onclick="fn_link_page(7);return false; ">7</a></li><li><a href="#none" onclick="fn_link_page(8);return false; ">8</a></li><li><a href="#none" onclick="fn_link_page(9);return false; ">9</a></li><li><a href="#none" onclick="fn_link_page(10);return false; ">10</a></li><li class="next"><a href="#none" onclick="fn_link_page(11);return false; "></a></li><li class="last"><a href="#none" onclick="fn_link_page(3236);return false; "></a></li></ul></div>
+
+							</div>
+						</div>
+						<!--//pagenation-->
+							
+					</div>
+					<!--//tabs_wrap-->
+				</div></form>
+				<!--//content_inner-->
+			</div>
+			
+
+<div id="quick" class="fixed">
+	<div class="close">
+		<strong>상담 및 신청 <span>열기</span></strong>
+	</div>
+	<div class="open">
+		<strong>상담 및 신청 <span>닫기</span></strong>
+		<ul>
+			<li><a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000014&amp;menuId=605&amp;topMenuId=704"><span></span>자주하는<br>질문</a></li>
+			<!--<li><a href="/KSCI/bbsList/getPagingBbscttInfomationList.do?bbsId=BBS000006&menuId=709&topMenuId=704"><span></span>사이트<br />이용문의</a></li>-->
+			<!-- <li><a href="#none"><span></span>상담<br />신청안내</a></li> -->
+			<li><a href="/KSCI/cvpl/getInqireEstmtReqst.do?menuId=60398&amp;topMenuId&amp;#61;60387&amp;upperMenuId=60387"><span></span>인증기관<br>안내</a></li>
+		</ul>
+	</div>
+</div>
+		</div>
+		<!--//CONTENT-->
+	</div>
+	<!--//BODY WRAP-->
+
+
+
+<script type="text/javascript">
+
+function openWindow(){
+	var url = $("#relatnSite option:selected").val();
+	window.open(url);
+}
+
+/*
+$(document).ready(function(){
+var _paq = _paq || [];
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="http://152.99.46.61/piwik/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', 8]);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+}); 
+*/
+</script>
+<!--
+	<noscript><p><img src="http://152.99.46.61/piwik/piwik.php?idsite=8" style="border:0;" alt="" /></p></noscript>
+-->
+<div id="footer">
+	<div class="inner">
+		<div>
+			<a href="#none" title="이용약관" onclick="window.open('/KSCI/personal/stipulation.do', 'popup', 'width=800,height=500, scrollbars=no, toolbal=no, location=no, status=no, menubar=no, resizable=no'); return false;">이용약관</a>
+			<a href="http://www.kats.go.kr/content.do?cmsid=366" target="_blank">개인정보처리방침</a>
+			<a href="#none" title="저작권정책" onclick="window.open('/KSCI/personal/policy.do', 'popup', 'width=800,height=500, scrollbars=no, toolbal=no, location=no, status=no, menubar=no, resizable=no'); return false;">저작권정책</a>
+			<p>
+				<select name="relatnSite" id="relatnSite" title="관련기관">
+					<option value="http://www.kats.go.kr">국가기술표준원</option>
+					<option value="http://www.ksa.or.kr">한국표준협회</option>
+					<option value="http://www.iso.org">ISO</option>
+					<option value="http://www.iec.ch">IEC</option>
+					<option value="http://www.knowtbt.kr">knowTBT</option>
+					<option value="http://www.1381call.kr">1381 인증표준 정보센터</option>
+					<option value="http://www.msip.go.kr">과학기술정보통신부</option>
+					<option value="http://www.mafra.go.kr">농림축산식품부</option>
+					<option value="http://www.me.go.kr">환경부</option>
+					<option value="http://www.moel.go.kr">고용노동부</option>
+					<option value="http://www.mof.go.kr">해양수산부</option>
+					<option value="http://www.mfds.go.kr">식품의약품안전처</option>
+					<option value="http://www.forest.go.kr">산림청</option>
+					<option value="http://www.motie.go.kr">산업통상자원부</option>
+					<option value="http://www.gov30.go.kr">정부3.0</option>
+				</select>
+				<!-- <input type="button" value="이동" name="goRelatnSite" id="goRelatnSite" /> -->
+				<input type="button" value="이동" onclick="openWindow()">
+			</p>
+		</div>
+		<div>
+			<p>
+				<span>(27737) 충북 음성군 맹동면 이수로 93 국가기술표준원</span><br>
+			
+				Copyright 2022 e나라표준인증. All Rights Reserved.
+			</p>
+			<p>
+				<span><em>시스템 관련 문의</em>043-870-5697</span>
+				<span><em>인증 표준 정보센터</em>1381</span>
+				<a href="http://www.kats.go.kr/" target="_blank"><img src="/KSCI/portal/user/tsr3/images/bn01.png" alt="국가기술표준원로고" title="국가기술표준원"></a>
+			</p>
+
+		
+		</div>
+	</div>
+</div>
+
+
+  
+
+<div><img id="loadImg2" src="/KSCI/images/pot/loading.gif" height="0px" width="0px"></div><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="Prev"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">August</span>&nbsp;<span class="ui-datepicker-year">2022</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">1</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">2</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">3</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">4</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">5</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">6</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">7</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">8</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">9</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">10</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">11</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">12</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">13</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">14</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">15</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">16</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">17</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">18</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">19</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">20</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">21</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">22</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">23</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">24</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">25</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">26</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">27</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">28</a></td><td class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today" data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default ui-state-highlight ui-state-active ui-state-hover" href="#">29</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">30</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="7" data-year="2022"><a class="ui-state-default" href="#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div><img id="loadImg2" src="/KSCI/images/pot/loading.gif" height="0px" width="0px"></div></body></html>

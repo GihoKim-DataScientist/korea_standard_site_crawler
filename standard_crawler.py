@@ -146,7 +146,13 @@ def std_crawler(whole_dict, lst_page_soup, driver, std_idx):
             driver.back()
             driver.refresh()
             
-        except:
+            with open("page_source1.html", "w", encoding = "utf8") as fp:
+                fp.write(driver.page_source)
+            
+        except Exception as ex:
+            # with open("page_source891.html", "w", encoding = "utf8") as fp:
+            #     fp.write(driver.page_source)
+            print(ex)
             print("Crawling error, No : ", num)
             is_success = False
             return whole_dict, is_success, standard
@@ -198,12 +204,12 @@ def page_crawler(start_page, chrome_path, url, std_idx):
             for page in range(start + 1, len(li_lst) - 1):
                 driver.find_element(By.XPATH, '//*[@id="tabs-container"]/div[3]/div/div/ul/li[{}]/a'.format(page)).click()
                 page_num = driver.find_element(By.XPATH, '//*[@id="tabs-container"]/div[3]/div/div/ul/li[{}]/a'.format(page)).text
-                
                 page_source = driver.page_source
                 lst_page_soup = BeautifulSoup(page_source, 'html.parser')
                 driver.implicitly_wait(100)
                 
                 std_dict, is_success, std_idx = std_crawler(std_dict, lst_page_soup, driver, std_idx)
+                
                 
                 if page_num == last_page:
                     is_success = True
@@ -211,13 +217,18 @@ def page_crawler(start_page, chrome_path, url, std_idx):
                 
                 elif is_success == False:
                     return std_dict, int(page_num), is_success, std_idx
+                    
                 
             # 다시 1페이지부터
             start = 2
             
             driver.find_element(By.CLASS_NAME, 'next').click()
-            
-    except:
+         
+    except Exception as ex:
+        print(ex)
+        
+        with open("page_source.html", "w", encoding = "utf8") as fp:
+            fp.write(driver.page_source)
         return std_dict, int(page_num), is_success, std_idx
     
 
@@ -260,7 +271,12 @@ def db_process(filename, host, password, schema_name, table_name):
                 cursor.execute(sql, (output_df.loc[i]["표준번호"], output_df.loc[i]["표준명(한글)"], output_df.loc[i]["표준명(영문)"], None, output_df.loc[i]["최종개정확인일"], json_data, output_df.loc[i]["crawled_time"], filename[7:15]))
             else:
                 print("There is a problem while inserting data number : ", i)
-    db.commit()
+    
+    try:
+        db.commit()
+    except Exception as ex:
+        print(ex)
+        print("db commite error")
 
     db.close()
     print("Done with inserting data to DB")
@@ -291,12 +307,36 @@ def main(last_page_no, max_retry_num, chrome_path, url, host, password, schema_n
             if i not in data_list['stds']:
                 data_list['stds'].append(i)
                 
-        # if it couldn't reach the last page
+        # if it couldn't reach the last page // 8901 and 10001에서 클릭 오류 해결하기 위해 driver 새로 한개 만들어줌
         if is_success == False:
             current_retry_count = current_retry_count + 1
             transform_to_json(data_list, output_name)
             last_page_no = end_page_no
-            print("Reconnecting to the page number : ", last_page_no)
+            
+            # print("Trying to crawl the error page : ", last_page_no)
+            
+            # driver_2 = webdriver.Chrome(executable_path=chrome_path)
+            # driver_2.get(url)
+
+            # for i in range(end_page_no // 10):
+            #     driver_2.find_element(By.CLASS_NAME, 'next').click()
+                
+            # page_source = driver_2.page_source
+            # lst_page_soup = BeautifulSoup(page_source, 'html.parser')
+            
+            # sub_dict = {}
+            # sub_dict['stds'] = []
+
+            # not_success_dict, is_sucess, standard = std_crawler(sub_dict, lst_page_soup, driver_2, std_idx)
+            
+            # for i in not_success_dict['stds']:
+            #     data_list['stds'].append(i)
+            
+            # print("Crawling is finished with the error page : ", last_page_no)
+
+            # last_page_no = last_page_no + 1
+
+            print("Recrawling from the page number : ", last_page_no)
         
         # if it reaches the last page
         elif is_success:
@@ -309,4 +349,4 @@ def main(last_page_no, max_retry_num, chrome_path, url, host, password, schema_n
         
         
 url = "https://standard.go.kr/KSCI/standardIntro/getStandardSearchList.do?menuId=919&topMenuId=502"
-main(889, 10, r"C:\Users\gihok\chatbot\chromedriver.exe", url, "192.168.0.124", "linuxer", "std_crawled_data", "std_data_check")
+main(1, 10, r"C:\Users\gihok\chatbot\chromedriver.exe", url, "192.168.0.124", "linuxer", "std_crawled_data", "std_data_check")
